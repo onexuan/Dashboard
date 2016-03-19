@@ -13,9 +13,9 @@ public class MainActivity extends AppCompatActivity {
         MyProgressBar progressBar = (MyProgressBar)findViewById(R.id.progress);
         progressBar.setProgressColor(getResources().getColor(R.color.progress));
         progressBar.setProgressBackColor(getResources().getColor(R.color.progressBack));
-        progressBar.setDrawable(getDrawable(R.drawable.casdf));
+        progressBar.setDrawable(getResources().getDrawable(R.drawable.casdf));
         progressBar.setBoundWidth(0);
-        progressBar.setProgressWidth(40);
+        progressBar.setProgressWidth(30);
         progressBar.start(1);
 
     }
