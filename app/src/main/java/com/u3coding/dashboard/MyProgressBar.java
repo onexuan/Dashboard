@@ -13,7 +13,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 
@@ -24,14 +23,17 @@ public class MyProgressBar extends View {
     float progress = 360;
     float arcStar = 270;
     float arcEnd = 360;
+    double rotateStep = 0.2;
     Bitmap bitmap;
     int totalTime;
     Bitmap image;
     Drawable drawable;
     int boundWidth = 5;
     private int progressWidth = 30;
+    private boolean isRotate = false;
     private int progressColor = Color.GREEN;
     private int progressBackColor = Color.GREEN;
+    private float rotateDegree = 0;
 
 
     public MyProgressBar(Context context) {
@@ -55,11 +57,14 @@ public class MyProgressBar extends View {
     }
 
     public void start(long time) {
+        bitmap = null;
+
         time *= 60000;
         final float step = (float) 360 / (time / 30);
         CountDownTimer mTimer = new CountDownTimer(time, 30) {
             public void onTick(long millisUntilFinished) {
                 progress -= step;
+                rotateDegree -= rotateStep;
                 invalidate();
             }
 
@@ -97,6 +102,11 @@ public class MyProgressBar extends View {
 
     public void setDrawable(Drawable drawable) {
         this.drawable = drawable;
+        invalidate();
+    }
+    public void setIsRote(boolean rotate)
+    {
+        this.isRotate = rotate;
         invalidate();
     }
 
@@ -143,9 +153,13 @@ public class MyProgressBar extends View {
             bitmapCanvas.drawBitmap(image,0, 0, bitmapPaint);
 
         }
-        Rect rect = new Rect((int)(centerX -totalRadiu),(int)(centerY-totalRadiu),(int)(centerX+totalRadiu),(int)(centerY+totalRadiu));
+        Rect rect = new Rect((int)(centerX -totalRadiu),(int)(centerY-totalRadiu),(int)(centerX+totalRadiu),(int)(centerY+ totalRadiu));
+        canvas.save();
+        if(isRotate)
+        canvas.rotate(rotateDegree,centerX,centerY);
         canvas.drawBitmap(bitmap,null ,rect, paint);
 
+        canvas.restore();
         //set paint for arc
         paint.setStrokeWidth(progressWidth);
         paint.setStrokeCap(Paint.Cap.ROUND);
