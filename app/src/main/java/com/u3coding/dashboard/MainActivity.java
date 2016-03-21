@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setBoundWidth(0);
         progressBar.setProgressWidth(30);
         progressBar.setIsRote(true);
-        progressBar.start(30);
+        progressBar.start(3);
 
     }
 

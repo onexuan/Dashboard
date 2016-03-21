@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -14,6 +15,7 @@ import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
 
 
 /**
@@ -147,10 +149,11 @@ public class MyProgressBar extends View {
             Paint bitmapPaint = new Paint();
             bitmapPaint.setAntiAlias(true);
 
-            bitmapCanvas.drawCircle(totalRadiu,totalRadiu, radiu, bitmapPaint);
+            bitmapCanvas.drawCircle(totalRadiu, totalRadiu, radiu, bitmapPaint);
 
             bitmapPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-            bitmapCanvas.drawBitmap(image,0, 0, bitmapPaint);
+            bitmapCanvas.drawBitmap(image,null,new RectF(0,0,2*totalRadiu,2*totalRadiu) , bitmapPaint);
+
 
         }
         Rect rect = new Rect((int)(centerX -totalRadiu),(int)(centerY-totalRadiu),(int)(centerX+totalRadiu),(int)(centerY+ totalRadiu));
